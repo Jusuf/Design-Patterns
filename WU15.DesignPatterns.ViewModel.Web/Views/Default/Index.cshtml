@@ -1,0 +1,45 @@
+﻿@using WU15.DesignPatterns.ViewModel.Core.Domain
+@using WU15.DesignPatterns.ViewModel.Core.Utilitys
+
+
+@model IEnumerable<TimeEntry>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3>Time Entries</h3>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hours)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink(item.Description.Truncate(15), "Edit", new { id = item.Id })
+        </td>
+        <td>
+            @item.Date.ToString("yyyy-MM-dd")
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hours)
+        </td>
+        
+    </tr>
+}
+
+</table>

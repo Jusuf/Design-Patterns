@@ -1,0 +1,42 @@
+﻿@using System.Globalization
+@using WU15.DesignPatterns.ViewModel.Core.Utilitys
+
+@model IDictionary<DateTime, List<WU15.DesignPatterns.ViewModel.Core.Domain.TimeEntry>>
+
+@{
+    ViewBag.Title = "GroupByMonth";
+}
+
+@foreach (var date in Model)
+{
+    <h3>@date.Key.ToString("MMMMM", CultureInfo.InvariantCulture)</h3>
+    <p>@date.Key.Year</p>
+
+    <table class="table">
+        <tr>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Hours</th>
+        </tr>
+
+        @foreach (var timeEntry in date.Value)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(timeEntry.Description.Truncate(15), "Edit", new { id = timeEntry.Id }) 
+                </td>
+                <td>
+                    @timeEntry.Date.ToString("yyyy-MM-dd")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => timeEntry.Hours)
+                </td>
+            </tr>
+        }
+
+    </table>
+
+
+}
+
+       
